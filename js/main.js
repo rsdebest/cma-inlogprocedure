@@ -87,8 +87,8 @@ $(window).load(function(){
     log(e)
   })       */
 
-  $(window).bind("orientationchange", function(evt){
-    log("orientation changed");
+  $(window).bind("resize", function(evt){
+    log("window resize");
     initDimensions();
     var scrollPosition = (pageNumber - 1) * scrollWidth;
     $("body").scrollLeft(scrollPosition);
