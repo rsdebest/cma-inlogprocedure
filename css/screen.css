@@ -1,0 +1,92 @@
+/* line 2, ../sass/_mixins.scss */
+.clearfix:after, .clearfix:before {
+  content: "";
+  display: table;
+}
+/* line 6, ../sass/_mixins.scss */
+.clearfix:after {
+  clear: both;
+}
+/* line 9, ../sass/_mixins.scss */
+.clearfix {
+  *zoom: 1;
+}
+
+/* line 3, ../sass/screen.scss */
+body, html {
+  height: 100%;
+  padding: 0;
+}
+
+/* line 8, ../sass/screen.scss */
+body {
+  background-color: #d6f7fe;
+  font-family: 'Cabin', sans-serif;
+}
+
+/* line 14, ../sass/screen.scss */
+#content {
+  width: 600%;
+  height: 100%;
+  background-image: url("/img/palm.png");
+  background-size: contain;
+}
+
+/* line 21, ../sass/screen.scss */
+.page {
+  float: left;
+  width: 16.65%;
+  height: 100%;
+}
+/* line 26, ../sass/screen.scss */
+.page .content {
+  display: block;
+  background-color: #a2e4f4;
+  background: rgba(167, 230, 245, 0.8);
+  color: #0a404c;
+  font-size: 18px;
+  line-height: 1.8em;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10%;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+/* line 39, ../sass/screen.scss */
+.page .content h1 {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-family: Cabin, bold;
+}
+/* line 46, ../sass/screen.scss */
+.page .content h1, .page .content p, .page .content img, .page .content form {
+  max-height: 30%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+/* line 56, ../sass/screen.scss */
+.page .content p {
+  text-align: center;
+}
+
+/* line 62, ../sass/screen.scss */
+.spacer {
+  float: left;
+  width: 4.185%;
+  min-height: 100%;
+}
+
+/* line 68, ../sass/screen.scss */
+canvas {
+  z-index: 9;
+  position: absolute;
+}
+
+/*
+#page1, #page6  { background: rgba(200, 200, 0, 0.5) }
+#page2, #page7  { background: rgba(255, 0, 200, 0.5)}
+#page3          { background: rgba(100, 100, 100, 0.5)}
+#page4          { background: rgba(255, 0, 0, 0.5)}
+#page5          { background: rgba(255, 0, 0, 0.5)}
+*/

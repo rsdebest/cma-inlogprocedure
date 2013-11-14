@@ -1,0 +1,25 @@
+@mixin clearfix {
+  &:after, &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+  & {
+    *zoom: 1;
+  }
+}
+.clearfix {
+  @include clearfix;
+}
+
+@mixin ab-center {
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+
+@mixin center {
+  margin: 0 auto;
+}

@@ -1,0 +1,80 @@
+@import "mixins";
+
+body, html{
+  height: 100%;
+  padding: 0;
+}
+
+body {
+//  overflow-x: hidden;
+  background-color: #d6f7fe;
+  font-family: 'Cabin', sans-serif;
+}
+
+#content{
+ width: 600%;
+ height: 100%;
+ background-image: url('/img/palm.png');
+ background-size: contain;
+}
+
+.page {
+  float: left;
+  width: 16.65%;
+  height : 100%;
+
+  .content {
+    display: block;
+    background-color: #a2e4f4;
+    background: rgba(167, 230, 245, 0.8);
+    color:#0a404c;
+    font-size: 18px;
+    line-height: 1.8em;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 10%;
+    padding-left:30px;
+    padding-right:30px;
+
+    h1 {
+      text-align: center;
+      padding-top:30px;
+      padding-bottom: 30px;
+      font-family: Cabin, bold;
+    }
+
+    h1, p, img, form {
+      max-height: 30%;
+      margin: 0 auto;
+      padding-bottom: 30px;
+    }
+
+    img {
+    //  max-width: 100%;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+}
+
+.spacer {
+  float: left;
+  width:4.185%;
+  min-height: 100%;
+}
+
+canvas {
+  z-index: 9;
+  position: absolute;
+}
+
+
+/*
+#page1, #page6  { background: rgba(200, 200, 0, 0.5) }
+#page2, #page7  { background: rgba(255, 0, 200, 0.5)}
+#page3          { background: rgba(100, 100, 100, 0.5)}
+#page4          { background: rgba(255, 0, 0, 0.5)}
+#page5          { background: rgba(255, 0, 0, 0.5)}
+*/
