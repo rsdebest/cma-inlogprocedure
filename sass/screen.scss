@@ -1,4 +1,5 @@
 @import "mixins";
+@import "compass/css3/border-radius";
 
 body, html{
   height: 100%;
@@ -12,10 +13,17 @@ body {
 }
 
 #content{
- width: 600%;
- height: 100%;
- background-image: url('/img/palm.png');
- background-size: contain;
+  width: 600%;
+  height: 100%;
+  background-image: url('/img/palms.png');
+  background-repeat: repeat-x;
+  background-position: bottom;
+
+ // background-size: contain;
+ // -o-background-size:35% auto;
+ // -webkit-background-size:35% auto;
+ // -moz-background-size:35% auto;
+ // background-size:35% auto;
 }
 
 .page {
@@ -25,6 +33,7 @@ body {
 
   .content {
     display: block;
+    @include border-radius(4px, 4px);
     background-color: #a2e4f4;
     background: rgba(167, 230, 245, 0.8);
     color:#0a404c;
