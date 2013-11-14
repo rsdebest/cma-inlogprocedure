@@ -6,7 +6,7 @@ function debug(x){
 $(window).load(function(){
 
   var hammertime      = $('.toucharea').hammer({
-    prevent_default: true,
+    prevent_default: true
   });
 
   var scrollPosition  = 0;
@@ -20,9 +20,11 @@ $(window).load(function(){
   //document.ontouchmove = function(e) {e.preventDefault()};
 
   initDimensions = function(){
+    log("initDimension called. Dimension start @ pageWidth " + pageWidth +  " spacerWidth " + spacerWidth);
     pageWidth = $('.page').width();
     spacerWidth = $('.spacer').width();
     scrollWidth = pageWidth + spacerWidth;
+    log("initDimension called. Dimension set to pageWidth " + pageWidth +  " spacerWidth " + spacerWidth);
   }
   initDimensions();
 
@@ -86,43 +88,9 @@ $(window).load(function(){
   })       */
 
   $(window).bind("orientationchange", function(evt){
+    log("orientation changed");
     initDimensions();
     var scrollPosition = (pageNumber - 1) * scrollWidth;
     $("body").scrollLeft(scrollPosition);
   });
 });
-
-
-
-  $(window).load(function() {
-
-    var width  = 8000;
-    var height = 700;
-
-    var ctx = $('canvas').get(0).getContext('2d');
-    ctx.canvas.width  = width;
-    ctx.canvas.height = height;
-
-
-
-    drawit($('#img1').offset().left, $('#img1').offset().top, $('#img2').offset().left, $('#img2').offset().top, 'yellow')
-
-
-    function drawit(startX,startY,endX,endY, color){
-    ctx.moveTo(startX,startY);
-    ctx.lineTo(endX,endY);
-    //ctx.strokeStyle = color;
-    ctx.lineWidth = 3;
-    ctx.stroke();
-    return;
-
-    diffX = startX - endX;
-    diffY = startY - endY;
-
-    ctx.moveTo(startX,startY);
-    ctx.quadraticCurveTo(
-    startX+50,div2y+0,
-    div2x+50,div2y+50);
-    ctx.stroke();
-    }
-  });
