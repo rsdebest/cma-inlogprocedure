@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "nl.coconut-mobile-app-preview.mobile"
+        version   = "0.0.1">
+
+  <name>Coconut mobile app</name>
+
+  <description>
+   Preview of the Coconut mobile app application
+  </description>
+
+  <author href="http://www.coconutcenter.com" email="info@coconutcenter.com">
+    Coconut
+  </author>
+
+  <icon src="img/coconut_logo.png" />
+  <gap:splash src="img/splash.png" />
+  <gap:platform name="android"/>
+  <access origin="*" />
+</widget>
