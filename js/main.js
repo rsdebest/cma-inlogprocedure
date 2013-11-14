@@ -100,14 +100,14 @@ $(window).load(function() {
   (function DrawConnectionsBetweenImages(){
     var pos = {x: 0, y: 0};
     var curveRadius = 30;
-    var buigNaarBoven = -1;
-    var buigNaarOnder = 1;
+    var bentUpwardsOnScreen = -1;
+    var bentDownwardOnScreen = 1;
 
-    var highestBottomY = Math.max.apply(null,
+    var largestYOfImages = Math.max.apply(null,
       $('#img1,#img2,#img3,#img4').map(function(index,elm){
         return Math.floor( $(elm).offset().top + $(elm).width() );
       }).toArray());
-    var height = highestBottomY + 10;
+    var height = largestYOfImages + 10;
     var width = $('#img4').offset().left + 10;
 
     var ctx = $('canvas').get(0).getContext('2d');
@@ -130,12 +130,12 @@ $(window).load(function() {
       var diffY = posElm2.y - pos.y;
       var lengthStraightHorz = Math.floor( (diffX - curveRadius * 2 ) /2 );
       var lengthStraightVert = Math.abs(diffY) - curveRadius * 2;
-      var buigFactor = (diffY > 0) ? buigNaarOnder : buigNaarBoven;
+      var bendFactor = (diffY > 0) ? bentDownwardOnScreen : bentUpwardsOnScreen;
 
       drawLineHorizontal(lengthStraightHorz);
-      drawCurve(buigFactor, true);
+      drawCurve(bendFactor, true);
       drawLineVertical(lengthStraightVert, (diffY > 0 ? 1 : -1) );
-      drawCurve(buigFactor, false);
+      drawCurve(bendFactor, false);
       drawLineHorizontal(lengthStraightHorz);
 
       pos.x = posElm2.x;
@@ -150,13 +150,13 @@ $(window).load(function() {
       pos.y = pos.y + directionFactor * distance;
       ctx.lineTo(pos.x, pos.y);
     }
-    function drawCurve(buigFactor, isHorizontaalAanBegin){
+    function drawCurve(bendFactor, isHorizontalAtStart){
       var endX = pos.x + curveRadius;
-      var endY = pos.y + buigFactor * curveRadius;
+      var endY = pos.y + bendFactor * curveRadius;
 
       var cx = 0 //Control-point x;
       var cy = 0 //Control-point y;
-      if (isHorizontaalAanBegin){
+      if (isHorizontalAtStart){
         cx = endX
         cy = pos.y
       }else{
