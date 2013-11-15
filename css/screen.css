@@ -25,6 +25,34 @@ body {
 }
 
 /* line 15, ../sass/screen.scss */
+#paginator {
+  position: fixed;
+  width: 100%;
+  bottom: 50px;
+}
+/* line 20, ../sass/screen.scss */
+#paginator ul {
+  display: block;
+  list-style-type: none;
+  padding: 0;
+  width: 140px;
+  margin: 0 auto;
+}
+/* line 28, ../sass/screen.scss */
+#paginator li {
+  background-image: url("./../img/sprites/page.png");
+  float: left;
+  width: 12px;
+  height: 12px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+/* line 37, ../sass/screen.scss */
+#paginator li.active {
+  background-image: url("./../img/sprites/active.png");
+}
+
+/* line 42, ../sass/screen.scss */
 #content {
   width: 600%;
   height: 100%;
@@ -33,13 +61,13 @@ body {
   background-position: bottom;
 }
 
-/* line 29, ../sass/screen.scss */
+/* line 56, ../sass/screen.scss */
 .page {
   float: left;
   width: 16.65%;
   height: 100%;
 }
-/* line 34, ../sass/screen.scss */
+/* line 61, ../sass/screen.scss */
 .page .content {
   display: block;
   -webkit-border-radius: 4px 4px;
@@ -56,32 +84,32 @@ body {
   padding-left: 30px;
   padding-right: 30px;
 }
-/* line 48, ../sass/screen.scss */
+/* line 75, ../sass/screen.scss */
 .page .content h1 {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
   font-family: Cabin, bold;
 }
-/* line 55, ../sass/screen.scss */
+/* line 82, ../sass/screen.scss */
 .page .content h1, .page .content p, .page .content img, .page .content form {
   max-height: 30%;
   margin: 0 auto;
   padding-bottom: 30px;
 }
-/* line 65, ../sass/screen.scss */
+/* line 92, ../sass/screen.scss */
 .page .content p {
   text-align: center;
 }
 
-/* line 71, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 .spacer {
   float: left;
   width: 4.185%;
   min-height: 100%;
 }
 
-/* line 77, ../sass/screen.scss */
+/* line 104, ../sass/screen.scss */
 canvas {
   z-index: 9;
   position: absolute;

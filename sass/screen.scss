@@ -12,6 +12,33 @@ body {
   font-family: 'Cabin', sans-serif;
 }
 
+#paginator {
+  position: fixed;
+  width:100%;
+  bottom: 50px;
+
+  ul {
+    display: block;
+    list-style-type: none;
+    padding:0;
+    width:140px;
+    margin: 0 auto;
+  }
+
+  li {
+    //@include sprites-sprite(page);
+    background-image: url('./../img/sprites/page.png');
+    float: left;
+    width: 12px;
+    height: 12px;
+    margin-left:8px;
+    margin-right: 8px;
+  }
+  li.active {
+    background-image: url('./../img/sprites/active.png');
+  }
+}
+
 #content{
   width: 600%;
   height: 100%;

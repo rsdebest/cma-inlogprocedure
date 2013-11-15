@@ -14,7 +14,13 @@ $(window).load(function(){
   var isAnimating     = false;
   var pageWidth, spacerWidth, scrollWidth;
 
-  //document.ontouchmove = function(e) {e.preventDefault()};
+
+  paginating = function(pageNumber){
+    $('#paginator .active').removeClass('active');
+    $('#paginator #page_'+ pageNumber).addClass('active');
+  }
+  paginating(pageNumber);
+
 
   initDimensions = function(){
     pageWidth   = $('.page').width();
