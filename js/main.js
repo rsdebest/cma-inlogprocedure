@@ -98,17 +98,13 @@ $(window).load(function(){
 $(window).load(function() {
 
   (function DrawConnectionsBetweenImages(){
-    var pos = {x: 0, y: 0};
-    var curveRadius = 30;
-    var bentUpwardsOnScreen = -1;
-    var bentDownwardOnScreen = 1;
-
     var largestYOfImages = Math.max.apply(null,
       $('#img1,#img2,#img3,#img4').map(function(index,elm){
         return Math.floor( $(elm).offset().top + $(elm).width() );
       }).toArray());
-    var height = largestYOfImages + 10;
-    var width = $('#img4').offset().left + 10;
+    var canvasDimensionsMargin = 5; //To be sure the connection line is drawn inside canvas borders;
+    var height = largestYOfImages + canvasDimensionsMargin;
+    var width = $('#img4').offset().left + canvasDimensionsMargin;
 
     var ctx = $('canvas').get(0).getContext('2d');
     ctx.canvas.width  = width;
@@ -119,60 +115,61 @@ $(window).load(function() {
     drawConnection('#img1', '#img2');
     drawConnection('#img2', '#img3');
     drawConnection('#img3', '#img4');
+
     ctx.stroke();
 
     function drawConnection(elm1, elm2){
-      pos = getPosition(elm1);
-      posElm2 = getPosition(elm2);
+      var bentUpwardsOnScreen = -1;
+      var bentDownwardOnScreen = 1;
+      var curveRadius = 30;
+      var pos = getPosition(elm1);
+      var posElm2 = getPosition(elm2);
       ctx.moveTo(pos.x, pos.y);
 
       var diffX = posElm2.x - pos.x;
       var diffY = posElm2.y - pos.y;
-      var lengthStraightHorz = Math.floor( (diffX - curveRadius * 2 ) /2 );
-      var lengthStraightVert = Math.abs(diffY) - curveRadius * 2;
+      var lengthStraightHorizontal = Math.floor( (diffX - curveRadius * 2 ) /2 );
+      var lengthStraightVertical = Math.abs(diffY) - curveRadius * 2;
       var bendFactor = (diffY > 0) ? bentDownwardOnScreen : bentUpwardsOnScreen;
 
-      drawLineHorizontal(lengthStraightHorz);
-      drawCurve(bendFactor, true);
-      drawLineVertical(lengthStraightVert, (diffY > 0 ? 1 : -1) );
-      drawCurve(bendFactor, false);
-      drawLineHorizontal(lengthStraightHorz);
+      drawLineHorizontal(pos, lengthStraightHorizontal);
+      drawCurve(pos, bendFactor, true);
+      drawLineVertical(pos, lengthStraightVertical, (diffY > 0 ? 1 : -1) );
+      drawCurve(pos, bendFactor, false);
+      drawLineHorizontal(pos, lengthStraightHorizontal);
 
-      pos.x = posElm2.x;
-      pos.y = posElm2.y;
-    }
-
-    function drawLineHorizontal(distance){
-      pos.x = pos.x + distance;
-      ctx.lineTo(pos.x, pos.y);
-    }
-    function drawLineVertical(distance, directionFactor){
-      pos.y = pos.y + directionFactor * distance;
-      ctx.lineTo(pos.x, pos.y);
-    }
-    function drawCurve(bendFactor, isHorizontalAtStart){
-      var endX = pos.x + curveRadius;
-      var endY = pos.y + bendFactor * curveRadius;
-
-      var cx = 0 //Control-point x;
-      var cy = 0 //Control-point y;
-      if (isHorizontalAtStart){
-        cx = endX
-        cy = pos.y
-      }else{
-        cx = pos.x
-        cy = endY
+      function drawLineHorizontal(pos, distance){
+        pos.x = pos.x + distance;
+        ctx.lineTo(pos.x, pos.y);
       }
+      function drawLineVertical(pos, distance, directionFactor){
+        pos.y = pos.y + directionFactor * distance;
+        ctx.lineTo(pos.x, pos.y);
+      }
+      function drawCurve(pos, bendFactor, isHorizontalAtStart){
+        var endX = pos.x + curveRadius;
+        var endY = pos.y + bendFactor * curveRadius;
 
-      ctx.quadraticCurveTo( cx, cy, endX, endY );
+        var cx = 0 //Control-point x;
+        var cy = 0 //Control-point y;
+        if (isHorizontalAtStart){
+          cx = endX
+          cy = pos.y
+        }else{
+          cx = pos.x
+          cy = endY
+        }
 
-      pos.x = endX;
-      pos.y = endY;
-    }
-    function getPosition(elm){
-      return {
-        x: Math.floor( $(elm).offset().left + $(elm).width()/2),
-        y: Math.floor( $(elm).offset().top + $(elm).height()/2 )
+        ctx.quadraticCurveTo( cx, cy, endX, endY );
+
+        pos.x = endX;
+        pos.y = endY;
+      }
+      function getPosition(elm){
+        return {
+          x: Math.floor( $(elm).offset().left + $(elm).width()/2),
+          y: Math.floor( $(elm).offset().top + $(elm).height()/2 )
+        }
       }
     }
   })()
