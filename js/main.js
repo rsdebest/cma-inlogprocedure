@@ -116,7 +116,6 @@ $(window).load(function() {
     drawConnection('#img2', '#img3');
     drawConnection('#img3', '#img4');
 
-    ctx.stroke();
 
     function drawConnection(elm1, elm2){
       var bentUpwardsOnScreen = -1;
@@ -137,6 +136,8 @@ $(window).load(function() {
       drawLineVertical(pos, lengthStraightVertical, (diffY > 0 ? 1 : -1) );
       drawCurve(pos, bendFactor, false);
       drawLineHorizontal(pos, lengthStraightHorizontal);
+
+      ctx.stroke();
 
       function drawLineHorizontal(pos, distance){
         pos.x = pos.x + distance;
