@@ -1,11 +1,8 @@
 function log(x){console.log(x)}
 
-function debug(x){
-  $('#debug').html('<p>'+x+'</p>');
-}
 $(window).load(function(){
 
-  var hammertime      = $('.toucharea').hammer({
+  var hammertime = $('.toucharea').hammer({
     prevent_default: true
   });
 
@@ -20,11 +17,9 @@ $(window).load(function(){
   //document.ontouchmove = function(e) {e.preventDefault()};
 
   initDimensions = function(){
-    log("initDimension called. Dimension start @ pageWidth " + pageWidth +  " spacerWidth " + spacerWidth);
-    pageWidth = $('.page').width();
+    pageWidth   = $('.page').width();
     spacerWidth = $('.spacer').width();
     scrollWidth = pageWidth + spacerWidth;
-    log("initDimension called. Dimension set to pageWidth " + pageWidth +  " spacerWidth " + spacerWidth);
   }
   initDimensions();
 
@@ -38,25 +33,19 @@ $(window).load(function(){
 
       if ((direction === moveLeft && pageNumber == 1) || (direction === moveRight && pageNumber == pageCount)){
         //do nothing;
-      }else{
+      } else {
         pageNumber += direction;
       }
-
       log("PageNumber: " + pageNumber);
-
       scrollPosition = $(document).scrollLeft();
-      $("body")
-        .stop()
-        .animate({
-          "scrollLeft": (scrollPosition + direction * scrollWidth)
-        }
-        ,1000
-        ,function(){
-          isAnimating = false;
-        }
-      );
+      $("body").stop().animate({
+      "scrollLeft": (scrollPosition + direction * scrollWidth)
+      }, 1000,
+      function(){
+        isAnimating = false;
+        paginating(pageNumber);
+      });
     }
-
   }
 
   hammertime.on("swipeleft", getOnSwipeCallback(moveRight));
@@ -65,27 +54,25 @@ $(window).load(function(){
   /*
   hammertime.on("release", function(e,v){
 
-    var navDirection = e.gesture.direction == "left" ? moveRight:moveLeft;
-    var distance = e.gesture.distance;
+    var navDirection  = e.gesture.direction == "left" ? moveRight:moveLeft;
+    var distance      = e.gesture.distance;
     if (distance > 200){
       //Navigeer naar volgende pagina
       var newScrollPosition = (pageNumber + navDirection) * scrollWidth;
+
       $("body").animate({
         "scrollLeft": newScrollPosition
       });
       pageNumber += navDirection;
-    }
-    else{
+    } else {
       //Snap terug naar oude pagina
       var newScrollPosition = pageNumber * scrollWidth;
       $("body").animate({
         "scrollLeft": newScrollPosition
       });
     }
-
     log('released')
-    log(e)
-  })       */
+  })*/
 
   $(window).bind("resize", function(evt){
     log("window resize");
