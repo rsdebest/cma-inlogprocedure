@@ -24,13 +24,13 @@ body {
   font-family: 'Cabin', sans-serif;
 }
 
-/* line 15, ../sass/screen.scss */
+/* line 14, ../sass/screen.scss */
 #paginator {
   position: fixed;
   width: 100%;
   bottom: 50px;
 }
-/* line 20, ../sass/screen.scss */
+/* line 19, ../sass/screen.scss */
 #paginator ul {
   display: block;
   list-style-type: none;
@@ -38,7 +38,7 @@ body {
   width: 140px;
   margin: 0 auto;
 }
-/* line 28, ../sass/screen.scss */
+/* line 27, ../sass/screen.scss */
 #paginator li {
   background-image: url("./../img/sprites/page.png");
   float: left;
@@ -53,21 +53,26 @@ body {
 }
 
 /* line 42, ../sass/screen.scss */
-#content {
-  width: 600%;
-  height: 100%;
+body {
   background-image: url("./../img/palms.png");
   background-repeat: repeat-x;
   background-position: bottom;
 }
 
-/* line 56, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
+#content {
+  position: relative;
+  width: 600%;
+  height: 100%;
+}
+
+/* line 58, ../sass/screen.scss */
 .page {
   float: left;
   width: 16.65%;
   height: 100%;
 }
-/* line 61, ../sass/screen.scss */
+/* line 63, ../sass/screen.scss */
 .page .content {
   display: block;
   -webkit-border-radius: 4px 4px;
@@ -84,35 +89,39 @@ body {
   padding-left: 30px;
   padding-right: 30px;
 }
-/* line 75, ../sass/screen.scss */
+/* line 77, ../sass/screen.scss */
 .page .content h1 {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
   font-family: Cabin, bold;
 }
-/* line 82, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 .page .content h1, .page .content p, .page .content img, .page .content form {
   max-height: 30%;
   margin: 0 auto;
   padding-bottom: 30px;
 }
-/* line 92, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
 .page .content p {
   text-align: center;
 }
 
-/* line 98, ../sass/screen.scss */
+/* line 96, ../sass/screen.scss */
 .spacer {
   float: left;
   width: 4.185%;
   min-height: 100%;
 }
 
-/* line 104, ../sass/screen.scss */
+/* line 102, ../sass/screen.scss */
 canvas {
-  z-index: 9;
   position: absolute;
+}
+
+/* line 107, ../sass/screen.scss */
+#page1 {
+  z-index: 99;
 }
 
 /*
