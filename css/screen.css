@@ -162,7 +162,7 @@ canvas {
 }
 
 @media (max-width: 768px) {
-  /* line 138, ../sass/screen.scss */
+  /* line 137, ../sass/screen.scss */
   .container, .col-md-12 {
     padding-left: 5px;
     padding-right: 5px;
