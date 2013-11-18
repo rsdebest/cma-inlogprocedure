@@ -66,13 +66,22 @@ body{
     background-color: #a2e4f4;
     background: rgba(167, 230, 245, 0.8);
     color:#0a404c;
-    font-size: 18px;
     line-height: 1.8em;
     width: 80%;
     margin: 0 auto;
     margin-top: 10%;
     padding-left:30px;
     padding-right:30px;
+
+    font-size: 18px;
+    @media (max-width: $screen-sm-min) {
+      font-size: 16px;
+      padding-left:10px;
+      padding-right: 10px;
+    }
+    @media (max-width: 400px) {
+      font-size: 14px;
+    }
 
     h1 {
       text-align: center;
