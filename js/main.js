@@ -95,27 +95,28 @@ $(window).load(function() {
       $('#img1,#img2,#img3,#img4').map(function(index,elm){
         return Math.floor( $(elm).offset().top + $(elm).width() );
       }).toArray());
-    var canvasDimensionsMargin = 5; //To be sure the connection line is drawn inside canvas borders;
+    var canvasDimensionsMargin = 30; //To be sure the connection line is drawn inside canvas borders;
     var height = largestYOfImages + canvasDimensionsMargin;
-    var width = $('#img4').offset().left + canvasDimensionsMargin;
+    var width = $('#img5').offset().left + canvasDimensionsMargin;
+
 
     var ctx = $('canvas').get(0).getContext('2d');
     ctx.canvas.width  = width;
     ctx.canvas.height = height;
-    ctx.strokeStyle = '#000000';
-    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#0a404c';
+    ctx.lineWidth = 4;
 
     drawConnection('#img1', '#img2');
     drawConnection('#img2', '#img3');
     drawConnection('#img3', '#img4');
-
+    drawConnection('#img4', '#img5');
 
     function drawConnection(elm1, elm2){
       var bentUpwardsOnScreen = -1;
       var bentDownwardOnScreen = 1;
       var curveRadius = 30;
-      var pos = getPosition(elm1);
-      var posElm2 = getPosition(elm2);
+      var pos = getPositionLeft(elm1);
+      var posElm2 = getPositionRight(elm2);
       ctx.moveTo(pos.x, pos.y);
 
       var diffX = posElm2.x - pos.x;
@@ -124,6 +125,7 @@ $(window).load(function() {
       var lengthStraightVertical = Math.abs(diffY) - curveRadius * 2;
       var bendFactor = (diffY > 0) ? bentDownwardOnScreen : bentUpwardsOnScreen;
 
+      //drawLineHorizontal(pos, lengthStraightHorizontal);
       drawLineHorizontal(pos, lengthStraightHorizontal);
       drawCurve(pos, bendFactor, true);
       drawLineVertical(pos, lengthStraightVertical, (diffY > 0 ? 1 : -1) );
@@ -159,10 +161,17 @@ $(window).load(function() {
         pos.x = endX;
         pos.y = endY;
       }
-      function getPosition(elm){
+
+      function getPositionLeft(elm){
         return {
-          x: Math.floor( $(elm).offset().left + $(elm).width()/2),
-          y: Math.floor( $(elm).offset().top + $(elm).height()/2 )
+          x: Math.floor( $(elm).offset().left + $(elm).width())-3,
+          y: Math.floor( $(elm).offset().top + $(elm).height()/2 )+0
+        }
+      }
+      function getPositionRight(elm){
+        return {
+          x: Math.floor( $(elm).offset().left + $(elm).width())-10,
+          y: Math.floor( $(elm).offset().top + $(elm).height()/2 )+0
         }
       }
     }
