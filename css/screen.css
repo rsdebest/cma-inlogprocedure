@@ -22,7 +22,6 @@ body, html {
 body {
   background-color: #d6f7fe;
   font-family: 'Cabin', sans-serif;
-  overflow-x: hidden;
 }
 
 /* line 15, ../sass/screen.scss */
