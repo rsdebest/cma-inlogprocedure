@@ -2,6 +2,26 @@ function log(x){console.log(x)}
 
 $(window).load(function(){
 
+  // Prevent browserbounce / dragging "outside" of the html
+  $(document).on(
+    'touchmove',
+    function(e) {
+      e.preventDefault();
+    }
+  );
+
+  // Prevent paginator from moving up while onscreen keyboard is visible
+  var $body = $('#paginator');
+  $(document)
+  .on('focus', 'input', function(e) {
+    $body.addClass('fixfixed');
+  })
+  .on('blur', 'input', function(e) {
+    $body.removeClass('fixfixed');
+  });
+
+
+
   var hammertime = $('.toucharea').hammer({
   //  prevent_default: true
   });
