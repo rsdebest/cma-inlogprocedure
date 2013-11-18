@@ -3,7 +3,7 @@ function log(x){console.log(x)}
 $(window).load(function(){
 
   var hammertime = $('.toucharea').hammer({
-    prevent_default: true
+  //  prevent_default: true
   });
 
   var scrollPosition  = 0;
