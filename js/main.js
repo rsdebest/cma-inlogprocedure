@@ -34,7 +34,6 @@ $(window).load(function(){
   var isAnimating     = false;
   var pageWidth, spacerWidth, scrollWidth;
 
-
   paginating = function(pageNumber){
     $('#paginator .active').removeClass('active');
     $('#paginator #page_'+ pageNumber).addClass('active');
@@ -49,7 +48,7 @@ $(window).load(function(){
   }
   initDimensions();
 
-  getOnSwipeCallback = function(direction){
+  var getOnSwipeCallback = function(direction){
     return function(ev) {
 
       if (isAnimating == true){
@@ -74,7 +73,8 @@ $(window).load(function(){
     }
   }
 
-
+  hammertime.on("swipeleft", getOnSwipeCallback(moveRight));
+  hammertime.on("swiperight", getOnSwipeCallback(moveLeft));
 
   /*
   hammertime.on("release", function(e,v){
@@ -123,8 +123,10 @@ $(window).load(function() {
     ctx.canvas.width = width;
     ctx.canvas.height = height;
     ctx.lineWidth = 4;
+    ctx.strokeStyle = "#0a404c";
     var curveRadius = 20;
     var drawSuccess = true;
+    var pixelOffset = 0; // To prevent fuzzy lines if needed: change to 0.5
 
     var connectionCount = $('img.connected').length - 1;
     for (var i=0; i<connectionCount; i++) //i = indexConnection
@@ -183,11 +185,13 @@ $(window).load(function() {
         ctx.quadraticCurveTo( cx, cy, endX, endY );
         pos = {x: endX, y: endY};
       }
+
       function getPosLeftBorder(elm){
-        return { x: elm.offset().left, y: elm.offset().top + elm.height()/2 }
+        console.log(elm);
+        return { x: Math.floor(elm.offset().left)+pixelOffset, y: Math.floor(elm.offset().top + elm.height()/2)+pixelOffset }
       }
       function getPosRightBorder(elm){
-        return { x: elm.offset().left + elm.width(), y: elm.offset().top + elm.height()/2 }
+        return { x: Math.floor(elm.offset().left + elm.width())+pixelOffset, y: Math.floor(elm.offset().top + elm.height()/2)+pixelOffset }
       }
       function moveTo(pos){
         ctx.moveTo(pos.x, pos.y);
