@@ -100,16 +100,15 @@ $(window).load(function(){
   })*/
 
   $(window).bind("resize", function(evt){
-    log("window resize");
+    //log("window resize");
     initDimensions();
     var scrollPosition = (pageNumber - 1) * scrollWidth;
     $("body").scrollLeft(scrollPosition);
+    DrawConnectionsBetweenImages();
   });
-});
 
-$(window).load(function() {
-
-  (function DrawConnectionsBetweenImages(){
+  DrawConnectionsBetweenImages();
+  function DrawConnectionsBetweenImages(){
     var largestYOfImages = Math.max.apply(null,
       $('#img1,#img2,#img3,#img4').map(function(index,elm){
         return Math.floor( $(elm).offset().top + $(elm).width() );
@@ -187,7 +186,6 @@ $(window).load(function() {
       }
 
       function getPosLeftBorder(elm){
-        console.log(elm);
         return { x: Math.floor(elm.offset().left)+pixelOffset, y: Math.floor(elm.offset().top + elm.height()/2)+pixelOffset }
       }
       function getPosRightBorder(elm){
@@ -197,5 +195,5 @@ $(window).load(function() {
         ctx.moveTo(pos.x, pos.y);
       }
     }
-  })()
+  }
 });
