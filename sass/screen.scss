@@ -9,12 +9,20 @@ body, html{
 body {
   background-color: #d6f7fe;
   font-family: 'Cabin', sans-serif;
+  overflow-x: hidden;
 }
 
 #paginator {
   position: fixed;
   width:100%;
   bottom: 50px;
+
+  @media (max-width: $screen-sm-min) {
+    bottom: 25px;
+  }
+  @media (max-width: 400px) {
+    bottom: 15px;
+  }
 
   ul {
     display: block;
@@ -37,6 +45,11 @@ body {
   li.active {
     background-image: url('./../img/sprites/active.png');
   }
+}
+
+// Added when onscreen keybooard pops up and destroys the layout
+#paginator .fixfixed {
+  position: absolute;
 }
 
 body{
@@ -117,7 +130,17 @@ canvas {
   z-index: 99;
 }
 
+#img5 {
+float:left;
+margin-top:15px;
+}
 
+.container, .col-md-12 {
+  @media (max-width: $screen-sm-min) {
+    padding-left:5px;
+    padding-right: 5px;
+  }
+}
 /*
 #page1, #page6  { background: rgba(200, 200, 0, 0.5) }
 #page2, #page7  { background: rgba(255, 0, 200, 0.5)}
