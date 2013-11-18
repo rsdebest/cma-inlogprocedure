@@ -54,8 +54,7 @@ $(window).load(function(){
     }
   }
 
-  hammertime.on("swipeleft", getOnSwipeCallback(moveRight));
-  hammertime.on("swiperight", getOnSwipeCallback(moveLeft));
+
 
   /*
   hammertime.on("release", function(e,v){
@@ -97,82 +96,81 @@ $(window).load(function() {
       }).toArray());
     var canvasDimensionsMargin = 30; //To be sure the connection line is drawn inside canvas borders;
     var height = largestYOfImages + canvasDimensionsMargin;
-    var width = $('#img5').offset().left + canvasDimensionsMargin;
+    var width = $('img.connected:last').offset().left + canvasDimensionsMargin;
 
 
     var ctx = $('canvas').get(0).getContext('2d');
-    ctx.canvas.width  = width;
+    ctx.canvas.width = width;
     ctx.canvas.height = height;
-    ctx.strokeStyle = '#0a404c';
     ctx.lineWidth = 4;
+    var curveRadius = 20;
+    var drawSuccess = true;
 
-    drawConnection('#img1', '#img2');
-    drawConnection('#img2', '#img3');
-    drawConnection('#img3', '#img4');
-    drawConnection('#img4', '#img5');
+    var connectionCount = $('img.connected').length - 1;
+    for (var i=0; i<connectionCount; i++) //i = indexConnection
+    {
+      drawConnection( $('img.connected').eq(i), $('div.spacer').eq(i),$('img.connected').eq(i+1) );
+    }
+    if (drawSuccess) ctx.stroke();
 
-    function drawConnection(elm1, elm2){
-      var bentUpwardsOnScreen = -1;
-      var bentDownwardOnScreen = 1;
-      var curveRadius = 30;
-      var pos = getPositionLeft(elm1);
-      var posElm2 = getPositionRight(elm2);
-      ctx.moveTo(pos.x, pos.y);
+    function drawConnection(elm1,elm2,elm3){
 
-      var diffX = posElm2.x - pos.x;
-      var diffY = posElm2.y - pos.y;
-      var lengthStraightHorizontal = Math.floor( (diffX - curveRadius * 2 ) /2 );
-      var lengthStraightVertical = Math.abs(diffY) - curveRadius * 2;
-      var bendFactor = (diffY > 0) ? bentDownwardOnScreen : bentUpwardsOnScreen;
+      var pos = getPosRightBorder(elm1);
+      moveTo(pos);
 
-      //drawLineHorizontal(pos, lengthStraightHorizontal);
-      drawLineHorizontal(pos, lengthStraightHorizontal);
-      drawCurve(pos, bendFactor, true);
-      drawLineVertical(pos, lengthStraightVertical, (diffY > 0 ? 1 : -1) );
-      drawCurve(pos, bendFactor, false);
-      drawLineHorizontal(pos, lengthStraightHorizontal);
+      drawStraight( getPosLeftBorder(elm2).x - getPosRightBorder(elm1).x, true );
+      drawSpacerLineTo( {x: getPosRightBorder(elm2).x, y: getPosLeftBorder(elm3).y } );
+      drawStraight( getPosLeftBorder(elm3).x - getPosRightBorder(elm2).x, true );
 
-      ctx.stroke();
-
-      function drawLineHorizontal(pos, distance){
-        pos.x = pos.x + distance;
+      function drawStraight(distance, IsHorizontal){
+        pos = {
+          x: pos.x + (IsHorizontal ? distance : 0),
+          y: pos.y + (IsHorizontal ? 0 : distance)
+        }
         ctx.lineTo(pos.x, pos.y);
       }
-      function drawLineVertical(pos, distance, directionFactor){
-        pos.y = pos.y + directionFactor * distance;
-        ctx.lineTo(pos.x, pos.y);
+      function drawSpacerLineTo(posEnd){
+        var widthSpacer = posEnd.x - pos.x;
+        var lengthStraightHorizontal = (widthSpacer - curveRadius * 2) / 2;
+        if (lengthStraightHorizontal < 0) drawSuccess = false;
+        drawStraight(lengthStraightHorizontal, true);
+
+        var heightSpacer = pos.y - posEnd.y;
+        var lengthStraightVertical =  Math.abs(heightSpacer) - curveRadius * 2;
+        if (lengthStraightVertical < 0) drawSuccess = false;
+
+        goUpwards = heightSpacer > 0;
+        drawCurve( goUpwards, true);
+        drawStraight( lengthStraightVertical * (goUpwards ? -1 : 1), false);
+        drawCurve( goUpwards, false);
+        drawStraight(lengthStraightHorizontal, true);
       }
-      function drawCurve(pos, bendFactor, isHorizontalAtStart){
+      function drawCurve(bendUpwards, isHorizontalAtStart){
+        var bendFactor = bendUpwards ? -1 : 1;
         var endX = pos.x + curveRadius;
         var endY = pos.y + bendFactor * curveRadius;
 
         var cx = 0 //Control-point x;
         var cy = 0 //Control-point y;
         if (isHorizontalAtStart){
-          cx = endX
-          cy = pos.y
+          cx = endX;
+          cy = pos.y;
         }else{
-          cx = pos.x
-          cy = endY
+          cx = pos.x;
+          cy = endY;
         }
 
         ctx.quadraticCurveTo( cx, cy, endX, endY );
-
-        pos.x = endX;
-        pos.y = endY;
+        pos = {x: endX, y: endY};
       }
-
-      function getPositionLeft(elm){
-        return {
-          x: Math.floor( $(elm).offset().left + $(elm).width())-3,
-          y: Math.floor( $(elm).offset().top + $(elm).height()/2 )+0
-        }
+      function getPosLeftBorder(elm){
+        return { x: elm.offset().left, y: elm.offset().top + elm.height()/2 }
       }
-      function getPositionRight(elm){
-        return {
-          x: Math.floor( $(elm).offset().left + $(elm).width())-10,
-          y: Math.floor( $(elm).offset().top + $(elm).height()/2 )+0
-        }
+      function getPosRightBorder(elm){
+        return { x: elm.offset().left + elm.width(), y: elm.offset().top + elm.height()/2 }
+      }
+      function moveTo(pos){
+        ctx.moveTo(pos.x, pos.y);
       }
     }
   })()
