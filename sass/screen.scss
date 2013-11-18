@@ -7,7 +7,6 @@ body, html{
 }
 
 body {
-//  overflow-x: hidden;
   background-color: #d6f7fe;
   font-family: 'Cabin', sans-serif;
 }
@@ -34,23 +33,26 @@ body {
     margin-left:8px;
     margin-right: 8px;
   }
+
   li.active {
     background-image: url('./../img/sprites/active.png');
   }
 }
 
-#content{
-  width: 600%;
-  height: 100%;
+body{
+
   background-image: url('./../img/palms.png');
   background-repeat: repeat-x;
   background-position: bottom;
+}
 
- // background-size: contain;
- // -o-background-size:35% auto;
- // -webkit-background-size:35% auto;
- // -moz-background-size:35% auto;
- // background-size:35% auto;
+#content{
+  position: relative;
+  width: 600%;
+  height: 100%;
+  //background-image: url('./../img/palms.png');
+  //background-repeat: repeat-x;
+  //background-position: bottom;
 }
 
 .page {
@@ -85,10 +87,6 @@ body {
       padding-bottom: 30px;
     }
 
-    img {
-    //  max-width: 100%;
-    }
-
     p {
       text-align: center;
     }
@@ -102,8 +100,12 @@ body {
 }
 
 canvas {
-  z-index: 9;
-  position: absolute;
+ position: absolute;
+  //float:left;
+}
+
+#page1 {
+  z-index: 99;
 }
 
 
