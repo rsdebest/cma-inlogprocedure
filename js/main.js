@@ -73,8 +73,8 @@ $(window).load(function(){
     }
   }
 
-  hammertime.on("swipeleft", getOnSwipeCallback(moveRight));
-  hammertime.on("swiperight", getOnSwipeCallback(moveLeft));
+  //hammertime.on("swipeleft", getOnSwipeCallback(moveRight));
+  //hammertime.on("swiperight", getOnSwipeCallback(moveLeft));
 
   /*
   hammertime.on("release", function(e,v){

@@ -16,33 +16,35 @@
 body, html {
   height: 100%;
   padding: 0;
+  margin: 0;
 }
 
-/* line 9, ../sass/screen.scss */
+/* line 10, ../sass/screen.scss */
 body {
   background-color: #d6f7fe;
   font-family: 'Cabin', sans-serif;
 }
 
-/* line 15, ../sass/screen.scss */
+/* line 16, ../sass/screen.scss */
 #paginator {
   position: fixed;
   width: 100%;
   bottom: 50px;
+  z-index: 90;
 }
 @media (max-width: 768px) {
-  /* line 15, ../sass/screen.scss */
+  /* line 16, ../sass/screen.scss */
   #paginator {
     bottom: 25px;
   }
 }
 @media (max-width: 400px) {
-  /* line 15, ../sass/screen.scss */
+  /* line 16, ../sass/screen.scss */
   #paginator {
     bottom: 15px;
   }
 }
-/* line 27, ../sass/screen.scss */
+/* line 29, ../sass/screen.scss */
 #paginator ul {
   display: block;
   list-style-type: none;
@@ -50,7 +52,7 @@ body {
   width: 140px;
   margin: 0 auto;
 }
-/* line 35, ../sass/screen.scss */
+/* line 37, ../sass/screen.scss */
 #paginator li {
   background-image: url("./../img/sprites/page.png");
   float: left;
@@ -59,37 +61,33 @@ body {
   margin-left: 8px;
   margin-right: 8px;
 }
-/* line 45, ../sass/screen.scss */
+/* line 47, ../sass/screen.scss */
 #paginator li.active {
   background-image: url("./../img/sprites/active.png");
 }
 
-/* line 51, ../sass/screen.scss */
+/* line 53, ../sass/screen.scss */
 #paginator .fixfixed {
   position: absolute;
 }
 
-/* line 55, ../sass/screen.scss */
-body {
+/* line 57, ../sass/screen.scss */
+#content {
+  position: relative;
+  width: 600%;
+  height: 100%;
   background-image: url("./../img/palms.png");
   background-repeat: repeat-x;
   background-position: bottom;
 }
 
-/* line 62, ../sass/screen.scss */
-#content {
-  position: relative;
-  width: 600%;
-  height: 100%;
-}
-
-/* line 71, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .page {
   float: left;
   width: 16.65%;
   height: 100%;
 }
-/* line 76, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 .page .content {
   display: block;
   -webkit-border-radius: 4px 4px;
@@ -107,7 +105,7 @@ body {
   font-size: 18px;
 }
 @media (max-width: 768px) {
-  /* line 76, ../sass/screen.scss */
+  /* line 74, ../sass/screen.scss */
   .page .content {
     font-size: 16px;
     padding-left: 10px;
@@ -115,54 +113,43 @@ body {
   }
 }
 @media (max-width: 400px) {
-  /* line 76, ../sass/screen.scss */
+  /* line 74, ../sass/screen.scss */
   .page .content {
     font-size: 14px;
   }
 }
-/* line 99, ../sass/screen.scss */
+/* line 97, ../sass/screen.scss */
 .page .content h1 {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
   font-family: Cabin, bold;
 }
-/* line 106, ../sass/screen.scss */
+/* line 104, ../sass/screen.scss */
 .page .content h1, .page .content p, .page .content img, .page .content form {
   max-height: 30%;
   margin: 0 auto;
   padding-bottom: 30px;
 }
-/* line 112, ../sass/screen.scss */
+/* line 110, ../sass/screen.scss */
 .page .content p {
   text-align: center;
 }
 
-/* line 118, ../sass/screen.scss */
+/* line 116, ../sass/screen.scss */
 .spacer {
   float: left;
   width: 4.185%;
   min-height: 100%;
 }
 
-/* line 124, ../sass/screen.scss */
+/* line 122, ../sass/screen.scss */
 canvas {
   position: absolute;
 }
 
-/* line 129, ../sass/screen.scss */
-#page1 {
-  z-index: 99;
-}
-
-/* line 133, ../sass/screen.scss */
-#img5 {
-  float: left;
-  margin-top: 15px;
-}
-
 @media (max-width: 768px) {
-  /* line 137, ../sass/screen.scss */
+  /* line 126, ../sass/screen.scss */
   .container, .col-md-12 {
     padding-left: 5px;
     padding-right: 5px;
@@ -176,3 +163,10 @@ canvas {
 #page4          { background: rgba(255, 0, 0, 0.5)}
 #page5          { background: rgba(255, 0, 0, 0.5)}
 */
+/* line 140, ../sass/screen.scss */
+#content.animate {
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
