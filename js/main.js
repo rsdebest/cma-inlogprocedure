@@ -1,4 +1,7 @@
-function log(x){console.log(x)}
+function log(){
+  for (var i=0;i<arguments.length;i++)
+    console.log( arguments[i] );
+  }
 
 $(window).load(function(){
 
@@ -20,119 +23,50 @@ $(window).load(function(){
     $body.removeClass('fixfixed');
   });
 
-
-
-  var hammertime = $('.toucharea').hammer({
+  $('.toucharea').hammer({
   //  prevent_default: true
   });
 
-  var scrollPosition  = 0;
-  var pageCount       = 5;
-  var pageNumber      = 1;
-  var moveLeft        = -1;
-  var moveRight       = 1;
-  var isAnimating     = false;
-  var pageWidth, spacerWidth, scrollWidth;
-
-  paginating = function(pageNumber){
-    $('#paginator .active').removeClass('active');
-    $('#paginator #page_'+ pageNumber).addClass('active');
-  }
-  paginating(pageNumber);
-
-
-  initDimensions = function(){
-    pageWidth   = $('.page').width();
-    spacerWidth = $('.spacer').width();
-    scrollWidth = pageWidth + spacerWidth;
-  }
-  initDimensions();
-
-  var getOnSwipeCallback = function(direction){
-    return function(ev) {
-
-      if (isAnimating == true){
-        return false;
-      }
-      isAnimating = true;
-
-      if ((direction === moveLeft && pageNumber == 1) || (direction === moveRight && pageNumber == pageCount)){
-        //do nothing;
-      } else {
-        pageNumber += direction;
-      }
-      log("PageNumber: " + pageNumber);
-      scrollPosition = $(document).scrollLeft();
-      $("body").stop().animate({
-      "scrollLeft": (scrollPosition + direction * scrollWidth)
-      }, 1000,
-      function(){
-        isAnimating = false;
-        paginating(pageNumber);
-      });
-    }
-  }
-
-  //hammertime.on("swipeleft", getOnSwipeCallback(moveRight));
-  //hammertime.on("swiperight", getOnSwipeCallback(moveLeft));
-
-  /*
-  hammertime.on("release", function(e,v){
-
-    var navDirection  = e.gesture.direction == "left" ? moveRight:moveLeft;
-    var distance      = e.gesture.distance;
-    if (distance > 200){
-      //Navigeer naar volgende pagina
-      var newScrollPosition = (pageNumber + navDirection) * scrollWidth;
-
-      $("body").animate({
-        "scrollLeft": newScrollPosition
-      });
-      pageNumber += navDirection;
-    } else {
-      //Snap terug naar oude pagina
-      var newScrollPosition = pageNumber * scrollWidth;
-      $("body").animate({
-        "scrollLeft": newScrollPosition
-      });
-    }
-    log('released')
-  })*/
-
   $(window).bind("resize", function(evt){
-    //log("window resize");
-    initDimensions();
+    var scrollWidth =  $('.page').width() + $('.spacer').width();
     var scrollPosition = (pageNumber - 1) * scrollWidth;
     $("body").scrollLeft(scrollPosition);
     DrawConnectionsBetweenImages();
   });
 
   DrawConnectionsBetweenImages();
+
   function DrawConnectionsBetweenImages(){
-    var largestYOfImages = Math.max.apply(null,
-      $('#img1,#img2,#img3,#img4').map(function(index,elm){
-        return Math.floor( $(elm).offset().top + $(elm).width() );
-      }).toArray());
-    var canvasDimensionsMargin = 30; //To be sure the connection line is drawn inside canvas borders;
-    var height = largestYOfImages + canvasDimensionsMargin;
-    var width = $('img.connected:last').offset().left + canvasDimensionsMargin;
-
-
-    var ctx = $('canvas').get(0).getContext('2d');
-    ctx.canvas.width = width;
-    ctx.canvas.height = height;
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "#0a404c";
+    var ctx = initCanvas();
     var curveRadius = 20;
     var drawSuccess = true;
     var pixelOffset = 0; // To prevent fuzzy lines if needed: change to 0.5
 
-    var connectionCount = $('img.connected').length - 1;
+    var connectionCount = $('div.spacer').length;
     for (var i=0; i<connectionCount; i++) //i = indexConnection
     {
       drawConnection( $('img.connected').eq(i), $('div.spacer').eq(i),$('img.connected').eq(i+1) );
     }
     if (drawSuccess) ctx.stroke();
+
+    function initCanvas(){
+      var largestYOfImages = Math.max.apply(null,
+        $('.page').map(function(index,elm){
+          return Math.floor( $(elm).offset().top + $(elm).width() );
+        }).toArray());
+      var canvasDimensionsMargin = -3; //To be sure the connection line is drawn inside canvas borders;
+      var height = largestYOfImages + canvasDimensionsMargin;
+      var width = $('img.connected:last').offset().left + canvasDimensionsMargin;
+
+      var ctx = $('canvas').get(0).getContext('2d');
+
+      ctx.canvas.width = width;
+      ctx.canvas.height = height;
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#0a404c';
+      ctx.clearRect ( 0, 0, width, height );
+      return ctx;
+    }
 
     function drawConnection(elm1,elm2,elm3){
 

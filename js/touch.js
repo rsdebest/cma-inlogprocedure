@@ -1,8 +1,6 @@
 $(window).on('load',function(){
 
-  /**
-   * requestAnimationFrame and cancel polyfill
-   */
+  //requestAnimationFrame and cancel polyfill
   (function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -22,139 +20,110 @@ $(window).on('load',function(){
         return id;
       };
 
-
-
     if (!window.cancelAnimationFrame)
       window.cancelAnimationFrame = function(id) {
         clearTimeout(id);
       };
   }());
+})
 
+$(window).on('load',function(){
 
+  (function() {
 
-  var self = this;
-  var element = $('body');
-  var container = $("#content", element);
-  var panes = $(".page", element);
+    var container = $('#content');
+    var pageWidth;
+    var pageCount = $('.page').length;
+    var pageCurrent = 0;
+    var spacerWidth;
+    var containerWidth;
+    setDimensions();
 
-  var pane_width;
-  var pane_count = panes.length;
+    $('body')
+      .hammer({ drag_lock_to_axis: true })
+      .on('release dragleft dragright swipeleft swiperight', SwipeHandler);
 
-  var current_pane = 0;
-  setPaneDimensions();
+    $(window).on('resize orientationchange', function() {
+      setpageDimensions();
+    })
 
-  //$(window).on("load resize orientationchange", function() {
-  //  setPaneDimensions();
-  //})
+    function setDimensions(){
+      pageWidth = $('.page').width();
+      spacerWidth = $('.spacer').width();
+      containerWidth = container.width();
+    }
 
-  element
-    .hammer({ drag_lock_to_axis: true })
-    .on("release dragleft dragright swipeleft swiperight", handleHammer);
+    function SwipeHandler(ev) {
+      ev.gesture.preventDefault();// disable browser scrolling
+      //log(ev);
 
-  /**
-   * set the pane dimensions and scale the container
-   */
-  function setPaneDimensions() {
-    pane_width = element.width();
-    panes.each(function() {
-      //$(this).width(pane_width);
-    });
-    var w = pane_width*pane_count + $('.spacer:eq(0)').width()*(pane_count-1) + 15;
-    //container.width();
-    log(w)
-  };
+      switch(ev.type) {
+        case 'dragright':
+        case 'dragleft':
+          // stick to the finger
+          var dragDistance = ev.gesture.deltaX;
 
-  function handleHammer(ev) {
-    // disable browser scrolling
-    ev.gesture.preventDefault();
-
-    switch(ev.type) {
-      case 'dragright':
-      case 'dragleft':
-        // stick to the finger
-        var pane_offset = -(100/pane_count)*current_pane;
-        var drag_offset = ((100/pane_width)*ev.gesture.deltaX) / pane_count;
-
-        // slow down at the first and last pane
-        if((current_pane == 0 && ev.gesture.direction == Hammer.DIRECTION_RIGHT) ||
-          (current_pane == pane_count-1 && ev.gesture.direction == Hammer.DIRECTION_LEFT)) {
-          drag_offset *= .4;
-
-        }
-
-        setContainerOffset(drag_offset + pane_offset);
-        break;
-
-      case 'swipeleft':
-        self.next();
-        ev.gesture.stopDetect();
-        break;
-
-      case 'swiperight':
-        self.prev();
-        ev.gesture.stopDetect();
-        break;
-
-      case 'release':
-        // more then 50% moved, navigate
-        if(Math.abs(ev.gesture.deltaX) > pane_width*0.4) {
-          if(ev.gesture.direction == 'right') {
-            self.prev();
-          } else {
-            self.next();
+          // Slow down drag animation;
+          if((pageCurrent == 0 && ev.gesture.direction == Hammer.DIRECTION_RIGHT) ||
+            (pageCurrent == pageCount-1 && ev.gesture.direction == Hammer.DIRECTION_LEFT)) {
+            dragDistance *= .4;
           }
+
+          moveToPosition(getPagePosition(pageCurrent) - dragDistance, false);
+          break;
+
+        case 'swipeleft':
+          moveToPage(pageCurrent+1);
+          ev.gesture.stopDetect();
+          break;
+
+        case 'swiperight':
+          moveToPage(pageCurrent-1);
+          ev.gesture.stopDetect();
+          break;
+
+        case 'release':
+          // Often, the swipe event has preceded this event;
+          // If more then 40% moved, navigate to appropriate page;
+          if(Math.abs(ev.gesture.deltaX) > 0.4 * pageWidth) {
+            if(ev.gesture.direction == 'right') moveToPage(pageCurrent-1); else moveToPage(pageCurrent+1);
+          }
+          else {
+            moveToPage(pageCurrent);
+          }
+          break;
+      }
+
+      function moveToPage( indexPage ) {
+        indexPage = Math.max(0, Math.min(indexPage, pageCount-1)); // Constrain indexPage between the bounds
+        pageCurrent = indexPage; //Update global pageCurrent variable;
+
+        $('.page').removeClass('active');
+        $('page').eq(indexPage).addClass('active');
+
+        moveToPosition(getPagePosition(indexPage), true);
+      }
+
+      function moveToPosition(xPosition, animate) {
+        container.toggleClass('animate', animate); //Set class which sets the transition duration;
+        var xPercentage = - (100/containerWidth) * xPosition;
+
+        if(Modernizr.csstransforms3d) {
+          container.css('transform', 'translate3d(' + xPercentage +'%,0,0) scale3d(1,1,1)');
+        }
+        else if(Modernizr.csstransforms) {
+          container.css('transform', 'translate('+ xPercentage +'%,0)');
         }
         else {
-          self.showPane(current_pane, true);
+          container.css('left',(-xPosition)+'px');
         }
-        break;
-    }
-  }
+      }
 
-  function setContainerOffset(percent, animate) {
-
-    container.removeClass("animate");
-    if(animate) {
-      container.addClass("animate");
+      function getPagePosition(pageIndex){
+        return pageIndex * (pageWidth + spacerWidth);
+      }
     }
 
+  }())
 
-
-    if(Modernizr.csstransforms3d) {
-     container.css("transform", "translate3d("+ percent +"%,0,0) scale3d(1,1,1)");
-    }
-    else if(Modernizr.csstransforms) {
-
-     container.css("transform", "translate("+ percent +"%,0)");
-    }
-    else {
-     var px = ((pane_width*pane_count) / 100) * percent;
-     container.css("left", px+"px");
-    }
-  }
-
-  this.next = function() {
-    return this.showPane(current_pane+1, true);
-  };
-  this.prev = function() { return this.showPane(current_pane-1, true); };
-
-  /**
-   * show pane by index
-   * @param   {Number}    index
-   */
-  this.showPane = function( index ) {
-    // between the bounds
-    index = Math.max(0, Math.min(index, pane_count-1));
-    current_pane = index;
-
-    var widthTotal =  $('#content').width();
-    var widthPage = $('.page:eq(0)').width();
-    var widthSpacer = $('.spacer:eq(0)').width();
-    var x = index * (widthPage + widthSpacer);
-    var offsetResult = - (100/widthTotal) * x;
-    var offset = -((100/pane_count)*current_pane);
-    log(x)
-
-    setContainerOffset(offsetResult, true);
-  };
 })

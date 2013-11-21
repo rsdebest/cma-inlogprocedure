@@ -13,6 +13,8 @@ body {
   //overflow-x: hidden;
 }
 
+html { -ms-touch-action: none; /* Direct all pointer events to JavaScript code. */ }
+
 #paginator {
   position: fixed;
   width:100%;
