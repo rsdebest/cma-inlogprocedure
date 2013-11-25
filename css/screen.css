@@ -16,33 +16,41 @@
 body, html {
   height: 100%;
   padding: 0;
+  margin: 0;
 }
 
-/* line 9, ../sass/screen.scss */
+/* line 10, ../sass/screen.scss */
 body {
   background-color: #d6f7fe;
   font-family: 'Cabin', sans-serif;
 }
 
-/* line 15, ../sass/screen.scss */
+/* line 16, ../sass/screen.scss */
+html {
+  -ms-touch-action: none;
+  /* Direct all pointer events to JavaScript code. */
+}
+
+/* line 18, ../sass/screen.scss */
 #paginator {
   position: fixed;
   width: 100%;
   bottom: 50px;
+  z-index: 90;
 }
 @media (max-width: 768px) {
-  /* line 15, ../sass/screen.scss */
+  /* line 18, ../sass/screen.scss */
   #paginator {
     bottom: 25px;
   }
 }
 @media (max-width: 400px) {
-  /* line 15, ../sass/screen.scss */
+  /* line 18, ../sass/screen.scss */
   #paginator {
     bottom: 15px;
   }
 }
-/* line 27, ../sass/screen.scss */
+/* line 31, ../sass/screen.scss */
 #paginator ul {
   display: block;
   list-style-type: none;
@@ -50,7 +58,7 @@ body {
   width: 140px;
   margin: 0 auto;
 }
-/* line 35, ../sass/screen.scss */
+/* line 39, ../sass/screen.scss */
 #paginator li {
   background-image: url("./../img/sprites/page.png");
   float: left;
@@ -59,28 +67,24 @@ body {
   margin-left: 8px;
   margin-right: 8px;
 }
-/* line 45, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 #paginator li.active {
   background-image: url("./../img/sprites/active.png");
 }
 
-/* line 51, ../sass/screen.scss */
+/* line 55, ../sass/screen.scss */
 #paginator .fixfixed {
   position: absolute;
 }
 
-/* line 55, ../sass/screen.scss */
-body {
-  background-image: url("./../img/palms.png");
-  background-repeat: repeat-x;
-  background-position: bottom;
-}
-
-/* line 62, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 #content {
   position: relative;
   width: 600%;
   height: 100%;
+  background-image: url("./../img/palms.png");
+  background-repeat: repeat-x;
+  background-position: bottom;
 }
 
 /* line 71, ../sass/screen.scss */
@@ -150,19 +154,8 @@ canvas {
   position: absolute;
 }
 
-/* line 129, ../sass/screen.scss */
-#page1 {
-  z-index: 99;
-}
-
-/* line 133, ../sass/screen.scss */
-#img5 {
-  float: left;
-  margin-top: 15px;
-}
-
 @media (max-width: 768px) {
-  /* line 137, ../sass/screen.scss */
+  /* line 128, ../sass/screen.scss */
   .container, .col-md-12 {
     padding-left: 5px;
     padding-right: 5px;
@@ -176,3 +169,10 @@ canvas {
 #page4          { background: rgba(255, 0, 0, 0.5)}
 #page5          { background: rgba(255, 0, 0, 0.5)}
 */
+/* line 142, ../sass/screen.scss */
+#content.animate {
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}

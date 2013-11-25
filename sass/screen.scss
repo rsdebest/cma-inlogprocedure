@@ -4,6 +4,7 @@
 body, html{
   height: 100%;
   padding: 0;
+  margin:0;
 }
 
 body {
@@ -12,10 +13,13 @@ body {
   //overflow-x: hidden;
 }
 
+html { -ms-touch-action: none; /* Direct all pointer events to JavaScript code. */ }
+
 #paginator {
   position: fixed;
   width:100%;
   bottom: 50px;
+  z-index: 90;
 
   @media (max-width: $screen-sm-min) {
     bottom: 25px;
@@ -52,17 +56,13 @@ body {
   position: absolute;
 }
 
-body{
-
-  background-image: url('./../img/palms.png');
-  background-repeat: repeat-x;
-  background-position: bottom;
-}
-
 #content{
   position: relative;
   width: 600%;
   height: 100%;
+  background-image: url('./../img/palms.png');
+  background-repeat: repeat-x;
+  background-position: bottom;
   //background-image: url('./../img/palms.png');
   //background-repeat: repeat-x;
   //background-position: bottom;
@@ -122,18 +122,9 @@ body{
 }
 
 canvas {
- position: absolute;
-  //float:left;
+  position: absolute;
 }
 
-#page1 {
-  z-index: 99;
-}
-
-#img5 {
-float:left;
-margin-top:15px;
-}
 .container, .col-md-12 {
   @media (max-width: $screen-sm-min) {
     padding-left:5px;
@@ -147,3 +138,10 @@ margin-top:15px;
 #page4          { background: rgba(255, 0, 0, 0.5)}
 #page5          { background: rgba(255, 0, 0, 0.5)}
 */
+
+#content.animate {
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
