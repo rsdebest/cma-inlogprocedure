@@ -1,0 +1,16 @@
+//@import "compass/reset";
+//@import "compass/css3";
+//@import "compass/typography";
+
+//@import "colors";         // color palette
+//@import "typography";     // font related
+@import "mixins";           // custom mixins
+
+// screen breakpoints as defined by Bootstrap
+$screen-xs-max: 767px;
+$screen-sm-min: 768px;
+$screen-sm-max: 991px;
+$screen-md-min: 992px;
+$screen-md-max: 1199px;
+$screen-lg-min: 1200px;
+

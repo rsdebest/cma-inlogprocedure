@@ -4,22 +4,18 @@
 body, html{
   height: 100%;
   padding: 0;
-  margin:0;
 }
 
 body {
   background-color: #d6f7fe;
   font-family: 'Cabin', sans-serif;
-  //overflow-x: hidden;
+  overflow-x: hidden;
 }
-
-html { -ms-touch-action: none; /* Direct all pointer events to JavaScript code. */ }
 
 #paginator {
   position: fixed;
   width:100%;
   bottom: 50px;
-  z-index: 90;
 
   @media (max-width: $screen-sm-min) {
     bottom: 25px;
@@ -56,13 +52,17 @@ html { -ms-touch-action: none; /* Direct all pointer events to JavaScript code. 
   position: absolute;
 }
 
+body{
+
+  background-image: url('./../img/palms.png');
+  background-repeat: repeat-x;
+  background-position: bottom;
+}
+
 #content{
   position: relative;
   width: 600%;
   height: 100%;
-  background-image: url('./../img/palms.png');
-  background-repeat: repeat-x;
-  background-position: bottom;
   //background-image: url('./../img/palms.png');
   //background-repeat: repeat-x;
   //background-position: bottom;
@@ -122,7 +122,18 @@ html { -ms-touch-action: none; /* Direct all pointer events to JavaScript code. 
 }
 
 canvas {
-  position: absolute;
+ position: absolute;
+  //float:left;
+}
+
+#page1 {
+  z-index: 99;
+}
+
+<<<<<<< HEAD
+#img5 {
+float:left;
+margin-top:15px;
 }
 
 .container, .col-md-12 {
@@ -131,6 +142,8 @@ canvas {
     padding-right: 5px;
   }
 }
+=======
+>>>>>>> d75a9729ed2480e4812b2b47e8e603d3995c9396
 /*
 #page1, #page6  { background: rgba(200, 200, 0, 0.5) }
 #page2, #page7  { background: rgba(255, 0, 200, 0.5)}
@@ -138,10 +151,3 @@ canvas {
 #page4          { background: rgba(255, 0, 0, 0.5)}
 #page5          { background: rgba(255, 0, 0, 0.5)}
 */
-
-#content.animate {
-  -webkit-transition: all .3s;
-  -moz-transition: all .3s;
-  -o-transition: all .3s;
-  transition: all .3s;
-}

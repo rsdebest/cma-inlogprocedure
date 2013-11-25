@@ -17,13 +17,30 @@
     <script src="js/jquery-2.0.3.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/jquery.hammer.min.js"></script>
+    <script src="js/modernizr.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/PageManager.js"></script>
 
   </head>
   <body>
 
 
+  <div id="debug"></div>
+
+  <div id="paginator">
+      <ul>
+          <li id="page_1"></li>
+          <li id="page_2"></li>
+          <li id="page_3"></li>
+          <li id="page_4"></li>
+          <li id="page_5"></li>
+      </ul>
+  </div>
+
+
   <div id="content" class="toucharea">
+
+    <canvas></canvas>
 
     <div id="page1" class="page">
       <div class="content">
@@ -32,7 +49,7 @@
             <h1>Welkom</h1>
           </div>
           <div class="row">
-            <img id="img1"  class="img-responsive" src="img/01a_welkom.png">
+            <img id="img1"  class="img-responsive connected" src="img/01a_welkom.png">
           </div>
           <div class="row">
             <p>Coconut is een sociaal netwerk binnen jouw organisatie. Coconut organiseert kennis en maakt communiceren en samenwerken makkelijker.</p>
@@ -50,7 +67,7 @@
             <div class="col-md-12">
               <h1>Kennis delen</h1>
               <p>Iets gelezen dat je aan het denken heeft gezet of je heeft ge&iuml;nspireerd? Deel het met je collega's! Wie weet help je iemand die vast zit of start je een boeiende conversatie.</p>
-              <img  id="img2" class="img-responsive" src="img/02a_kennisdelen.png">
+              <img id="img2" class="img-responsive connected" src="img/02a_kennisdelen.png">
             </div>
           </div>
         </div>
@@ -64,7 +81,7 @@
         <div class="container ">
           <div class="col-md-12">
             <h1>Samenwerken</h1>
-            <img id="img3" class="img-responsive" src="img/03a_samenwerken.png">
+            <img id="img3" class="img-responsive connected" src="img/03a_samenwerken.png">
             <p>Twee weten meer dan &eacute;&eacute;n, daarom verbind Coconut graag collega's met elkaar om ideeen te bedenken en problemen op te lossen. Je werkt immers nooit alleen.</p>
           </div>
         </div>
@@ -79,7 +96,7 @@
           <div class="col-md-12">
             <h1>Altijd up-to-date</h1>
             <p>Of er nu een jarige is of de markt wordt opgeschud door een nieuwe ontwikkeling. Met coconut blijf je altijd op de hoogte van wat er speelt, wanneer jij dat wilt.</p>
-            <img id="img4" class="img-responsive" src="img/04a_uptodate.png">
+            <img id="img4" class="img-responsive connected" src="img/04a_uptodate.png">
           </div>
         </div>
       </div>
@@ -91,21 +108,16 @@
       <div class="content">
         <div class="container">
           <div class="col-md-12">
+            <img id="img5" class="connected" src="img/05_aandeslag.png">
             <h1>Aan de slag</h1>
-            <p>Om in te loggen dient u de url van uw Coconut en uw inlogcode in te voeren. Uw inlogcode kunt u opvragen in Coconut.</p>
+            <p>Om in te loggen hebben we uw bedrijfsnaam nodig. Typ hier hieronder uw bedrijfsnaam in.</p>
             <div class="row">
               <div class="col-xs-12">
-              <form>
-                <div class="form-group">
-                  <input type="text" placeholder="coconut url">
-                </div>
-                <div class="form-group">
-                  <input type="text"  placeholder="Code">
-                </div>
-                <div class="form-group">
-                  <input type="submit" value="Koppelen">
-                </div>
-              </form>
+                <form>
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Bedrijfsnaam">
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -113,5 +125,6 @@
       </div>
     </div>
   </div>
+
   </body>
 </html>
